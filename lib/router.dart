@@ -5,6 +5,8 @@ import 'package:projectmanagementflutter/pages/login.dart';
 import 'package:projectmanagementflutter/pages/profile.dart';
 import 'package:projectmanagementflutter/pages/register.dart';
 
+import 'models/user_model.dart';
+
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -29,14 +31,20 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/profile/:id',
       builder: (BuildContext context, GoRouterState state) {
-        final userId = state.pathParameters['id'] as int; // Access parameters from the state
-        return Profile(userId);
+        User user = state.pathParameters['user'] as User; // Access parameters from the state
+        return Profile(user);
       },
     ),
     GoRoute(
       path: '/register',
       builder: (BuildContext context, GoRouterState state) {
-        return const Register();
+        final emailController = TextEditingController();
+        final passwordController = TextEditingController();
+        return RegistrationPage(
+          emailController: emailController,
+          passwordController: passwordController,
+          onPressed: () {}, // You can provide an onPressed function here
+        );
       },
     ),
   ],

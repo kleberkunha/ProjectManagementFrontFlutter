@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:projectmanagementflutter/pages/profile.dart';
 
 import '../services/user_service.dart';
@@ -44,7 +45,7 @@ class Login extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return Profile(user.id);
+                        return Profile(user);
                       },
                     ),
                   );
@@ -54,6 +55,17 @@ class Login extends StatelessWidget {
                 });
               },
               child: const Text('Login'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () => context.go('/register'),
+              child: const Text('Register'),
+            ),
+            const SizedBox(height: 16),
+            //BACK HOME BOTTOM
+            ElevatedButton(
+                onPressed: () => context.go('/'),
+              child: const Text('Back to Home'),
             ),
           ],
         ),

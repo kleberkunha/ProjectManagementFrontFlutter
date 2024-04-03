@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/user_model.dart';
 
 class Profile extends StatelessWidget {
-  const Profile(int userId, {super.key});
+  final User user;
+
+  const Profile(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class Profile extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "Richie Lorie",
+                    user.firstName,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -74,12 +77,13 @@ class _ProfileInfoRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: _items
             .map((item) => Expanded(
-            child: Row(
-              children: [
-                if (_items.indexOf(item) != 0) const VerticalDivider(),
-                Expanded(child: _singleItem(context, item)),
-              ],
-            )))
+          child: Row(
+            children: [
+              if (_items.indexOf(item) != 0) const VerticalDivider(),
+              Expanded(child: _singleItem(context, item)),
+            ],
+          ),
+        ))
             .toList(),
       ),
     );
@@ -100,7 +104,7 @@ class _ProfileInfoRow extends StatelessWidget {
       ),
       Text(
         item.title,
-        style: Theme.of(context).textTheme.bodySmall,
+        style: Theme.of(context).textTheme.bodyMedium,
       )
     ],
   );
