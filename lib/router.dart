@@ -9,6 +9,7 @@ import 'models/user_model.dart';
 
 
 final GoRouter router = GoRouter(
+  initialLocation: '/',
   routes: <GoRoute>[
     GoRoute(
       path: '/',
@@ -31,8 +32,9 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/profile/:id',
       builder: (BuildContext context, GoRouterState state) {
-        User user = state.pathParameters['user'] as User; // Access parameters from the state
-        return Profile(user);
+        String? id = state.pathParameters['id']!; // Access parameters from the state
+        int userId = int.tryParse(id) ?? 0;
+        return Profile(id: userId,);
       },
     ),
     GoRoute(

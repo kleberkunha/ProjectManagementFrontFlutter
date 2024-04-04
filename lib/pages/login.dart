@@ -38,6 +38,21 @@ class Login extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                final userService = UserService();
+                userService.login(emailController.text, passwordController.text)
+                    .then((user) {
+                  // Navigate to profile page if login is successful
+                  context.go('/profile/${user.id}');
+                })
+                    .catchError((error) {
+                  // Handle login error
+                  print('Login failed: $error');
+                });
+              },
+              child: const Text('Login'),
+            ),
+          /*  ElevatedButton(
+              onPressed: () {
                 final userService = UserService(); // Instantiate UserService
                 userService.login(emailController.text, passwordController.text)
                     .then((user) {
@@ -45,7 +60,8 @@ class Login extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return Profile(user);
+                        context.go('/profile/$user.id');
+                         Profile(id: user.id,);
                       },
                     ),
                   );
@@ -55,7 +71,7 @@ class Login extends StatelessWidget {
                 });
               },
               child: const Text('Login'),
-            ),
+            ),*/
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => context.go('/register'),

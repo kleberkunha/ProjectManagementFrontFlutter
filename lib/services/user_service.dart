@@ -53,14 +53,14 @@ class UserService{
     if (response.statusCode == 200) {
 
       final Map<String, dynamic> responseData = jsonDecode(response.body);
-      final userId = responseData['id'];
-      final user = await UserService().fetchUserData(userId);
+      final id = responseData['id'];
+      final user = await UserService().fetchUserData(id);
 
       //Create redirection here
       if(context.mounted){
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Profile(user),
+            builder: (context) => Profile(id: user.id,),
           ),
         );
       }
@@ -81,8 +81,8 @@ class UserService{
     }
   }
 
-  Future<User> fetchUserData(int userId) async {
-    final response = await http.get(Uri.parse('$baseUrl/user/$userId'));
+  Future<User> fetchUserData(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/profile/$id'));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final user = User.fromJson(jsonData);
